@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import UserDetailsScreen from './components/LoginScreen';
+import OTPVerificationTest from './components/OTPVerificationTest';
+import MainTabNavigator from './components/MainTabNavigator';
+import SosScreen from './components/SosScreen';
+import FloatingSOS from './components/FloatingSOS';
+import TravelModeScreen from './components/TravelModeScreen';
+import JourneyPlannerScreen from './components/JourneyPlannerScreen';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function AppContainer() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <MainTabNavigator />
+      <FloatingSOS />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="UserDetails" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="UserDetails" component={UserDetailsScreen} />
+        <Stack.Screen name="OTPVerification" component={OTPVerificationTest} />
+        <Stack.Screen name="MainTabs" component={AppContainer} />
+        <Stack.Screen name="TravelMode" component={TravelModeScreen} />
+        <Stack.Screen name="JourneyPlanner" component={JourneyPlannerScreen} />
+        <Stack.Screen name="SOS" component={SosScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
