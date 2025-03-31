@@ -13,20 +13,20 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>EmpowerHer Safety Dashboard</Text>
+      <Text style={styles.heading}>EmpowerHer</Text>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
           style={[styles.circleButton, styles.travelMode]}
           onPress={handleTravelMode}
         >
-          <Ionicons name="walk" size={50} color="#fff" />
+          <Ionicons name="walk" size={60} color="#fff" />
           <Text style={styles.buttonLabel}>Travel Mode</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.circleButton, styles.planner]}
           onPress={handlePlanner}
         >
-          <Ionicons name="map" size={50} color="#fff" />
+          <Ionicons name="map" size={60} color="#fff" />
           <Text style={styles.buttonLabel}>Journey Planner</Text>
         </TouchableOpacity>
       </View>
@@ -38,30 +38,43 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    paddingTop: 40,
+    paddingTop: 50,
     alignItems: 'center',
   },
   heading: {
-    fontSize: 24,
+    fontSize: 28,
     textAlign: 'center',
-    marginBottom: 20,
-    fontWeight: 'bold',
+    marginTop: 50,
+    fontWeight: '700',
+    color: '#333',
+    textShadowColor: '#ccc',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+    textDecorationLine: 'underline',
+  },  
+  heading2: {
+    fontSize: 25,
+    textAlign: 'center',    
+    fontWeight: '700',
+    color: '#333',
+    textShadowColor: '#ccc',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   buttonsContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // Prevent pushing SOS button if it's rendered at bottom separately.
     paddingBottom: 120,
   },
   circleButton: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
+    width: 180, // increased size
+    height: 180,
+    borderRadius: 90,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 15,
-    elevation: 3,
+    marginVertical: 20, // more space between buttons
+    elevation: 4,
   },
   travelMode: {
     backgroundColor: '#007BFF',
@@ -71,7 +84,7 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 18,
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',

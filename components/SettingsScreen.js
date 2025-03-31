@@ -1,34 +1,28 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Switch, Alert } from 'react-native';
+// SettingsScreen.js
+import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { Ionicons } from '@expo/vector-icons';
+import { UserContext } from '../UserContext'; // Import context
 
 export default function SettingsScreen({ navigation }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  
-  const toggleDarkMode = () => {
-    setIsDarkMode(prevState => !prevState);
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const { user } = useContext(UserContext); // Get logged-in user data
+
+  const handleManageSOSContacts = () => {
+    if (user && user.phone) {
+      navigation.navigate('SOSContacts', { phone: user.phone });
+    } else {
+      Alert.alert("Error", "User identifier not found");
+    }
   };
 
-  const handleAddContact = () => {
-    // Navigate to the SOS Contacts screen
-    navigation.navigate('SOSContacts');
-  };
-
-  const handleLanguageChange = () => {
-    // For demonstration purposes, simply show an alert with language options.
-    Alert.alert(
-      "Change Language",
-      "Select a language",
-      [
-        { text: "English", onPress: () => Alert.alert("Language changed to English") },
-        { text: "Spanish", onPress: () => Alert.alert("Language changed to Spanish") },
-        { text: "Cancel", style: 'cancel' },
-      ],
-      { cancelable: true }
-    );
+  const handleLanguageChange = (lang) => {
+    setSelectedLanguage(lang);
+    Alert.alert("Language Changed", `Language changed to ${lang === 'en' ? "English" : "Tamil"}`);
   };
 
   const handleLogout = () => {
-    // Confirm logout and navigate back to the login/user details screen
     Alert.alert(
       "Logout",
       "Are you sure you want to logout?",
@@ -41,29 +35,32 @@ export default function SettingsScreen({ navigation }) {
   };
 
   return (
-    <View style={[styles.container, isDarkMode ? styles.darkBackground : styles.lightBackground]}>
-      <Text style={[styles.header, isDarkMode ? styles.darkText : styles.lightText]}>
-        Settings
-      </Text>
-      
-      <TouchableOpacity style={styles.button} onPress={handleAddContact}>
-        <Text style={styles.buttonText}>Add SOS Contact</Text>
+    <View style={styles.container}>
+      <Text style={styles.header}>Settings</Text>
+
+      <TouchableOpacity style={styles.button} onPress={handleManageSOSContacts}>
+        <Text style={styles.buttonText}>Manage SOS Contacts</Text>
       </TouchableOpacity>
-      
-      <TouchableOpacity style={styles.button} onPress={handleLanguageChange}>
-        <Text style={styles.buttonText}>Change Language</Text>
-      </TouchableOpacity>
-      
-      <View style={styles.switchContainer}>
-        <Text style={[styles.label, isDarkMode ? styles.darkText : styles.lightText]}>
-          Dark Mode
-        </Text>
-        <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
+
+      <View style={styles.dropdownContainer}>
+        <Text style={styles.dropdownLabel}>Change Language</Text>
+        <Picker
+          selectedValue={selectedLanguage}
+          style={styles.picker}
+          onValueChange={(itemValue) => handleLanguageChange(itemValue)}
+          mode="dropdown"
+        >
+          <Picker.Item label="English" value="en" />
+          <Picker.Item label="Tamil" value="ta" />
+        </Picker>
       </View>
-      
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
+
+      <View style={styles.logoutContainer}>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Ionicons name="log-out" size={30} color="#fff" />
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -72,55 +69,62 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  lightBackground: {
-    backgroundColor: '#fff',
-  },
-  darkBackground: {
-    backgroundColor: '#333',
+    backgroundColor: "#fff",
   },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 30,
     textAlign: 'center',
-  },
-  lightText: {
-    color: '#000',
-  },
-  darkText: {
-    color: '#fff',
+    color: "#4169E1",
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: "#007BFF",
     padding: 15,
     borderRadius: 8,
-    marginBottom: 15,
+    marginBottom: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
     textAlign: 'center',
   },
-  switchContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 30,
-    paddingHorizontal: 10,
+  dropdownContainer: {
+    backgroundColor: "#f5f5f5",
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 20,
   },
-  label: {
-    fontSize: 18,
+  dropdownLabel: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 5,
+    color: "#333",
+  },
+  picker: {
+    height: 50,
+    width: "100%",
+  },
+  logoutContainer: {
+    position: 'absolute',
+    bottom: 30,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
   },
   logoutButton: {
-    backgroundColor: '#FF3B30',
-    padding: 15,
-    borderRadius: 8,
-    marginTop: 30,
+    backgroundColor: "#FF3B30",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 50,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   logoutText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    textAlign: 'center',
+    marginLeft: 10,
+    fontWeight: "bold",
   },
 });

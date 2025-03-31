@@ -9,6 +9,7 @@ import SosScreen from './components/SosScreen';
 import FloatingSOS from './components/FloatingSOS';
 import TravelModeScreen from './components/TravelModeScreen';
 import JourneyPlannerScreen from './components/JourneyPlannerScreen';
+import { UserProvider } from './UserContext';
 
 const Stack = createStackNavigator();
 
@@ -23,15 +24,17 @@ function AppContainer() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="UserDetails" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="UserDetails" component={UserDetailsScreen} />
-        <Stack.Screen name="OTPVerification" component={OTPVerificationTest} />
-        <Stack.Screen name="MainTabs" component={AppContainer} />
-        <Stack.Screen name="TravelMode" component={TravelModeScreen} />
-        <Stack.Screen name="JourneyPlanner" component={JourneyPlannerScreen} />
-        <Stack.Screen name="SOS" component={SosScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="UserDetails" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="UserDetails" component={UserDetailsScreen} />
+          <Stack.Screen name="OTPVerification" component={OTPVerificationTest} />
+          <Stack.Screen name="MainTabs" component={AppContainer} />
+          <Stack.Screen name="TravelMode" component={TravelModeScreen} />
+          <Stack.Screen name="JourneyPlanner" component={JourneyPlannerScreen} />
+          <Stack.Screen name="SOS" component={SosScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserProvider>
   );
 }

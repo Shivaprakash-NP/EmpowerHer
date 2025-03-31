@@ -1,21 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
+import { UserContext } from '../UserContext'; // Import the context
 
 export default function UserDetailsScreen({ navigation }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const { setUser } = useContext(UserContext); // Get the setter from context
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (!name || !phone) {
       Alert.alert("Error", "Please fill in both fields.");
       return;
     }
-    // Navigate to the OTP verification screen.
-    // Pass the entered phone number and a callback that navigates to Home.
-    navigation.navigate('OTPVerification', {
-      phone,
-      onVerified: () => navigation.replace('Home')
-    });
+    
+    try {
+      // Use the phone number as the unique ID for the user document
+      const userDocRef = doc(db, "users", phone);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (!userDocSnap.exists()) {
+        // If the document does not exist, create it.
+        await setDoc(userDocRef, {
+          name,
+          phone,
+          createdAt: serverTimestamp(),
+        });
+        console.log(`User document created for ${phone}`);
+      } else {
+        console.log(`User document already exists for ${phone}`);
+      }
+
+      // Save the user data in context so that it is available globally.
+      setUser({ phone, name });
+
+      // Navigate to the OTP verification screen.
+      navigation.navigate('OTPVerification', {
+        phone,
+        onVerified: () => navigation.replace('Home')
+      });
+    } catch (error) {
+      console.error("Error creating user document:", error);
+      Alert.alert("Error", "Failed to create user record. Please try again.");
+    }
   };
 
   return (

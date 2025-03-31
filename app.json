@@ -18,7 +18,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.empowerher",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "This app needs access to location to report and track safety incidents."
+        "NSLocationWhenInUseUsageDescription": "This app needs access to location to report and track safety incidents.",
+        "cameraRollPermission": "The app needs access to your media library to select photos."
       }
     },
     "android": {
@@ -29,17 +30,27 @@
       "package": "com.anonymous.empowerher",
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION"
-      ]
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
+      "usesCleartextTraffic": true
     },
     "plugins": [
-      "expo-sqlite",
       [
         "expo-location",
         {
+          "locationAlways": false,
+          "locationWhenInUse": true,
           "locationAlwaysAndWhenInUsePermission": "Allow EmpowerHer to use your location."
         }
-      ]
-    ]
+      ],
+      "expo-sqlite"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "0bc2dd81-3eab-4d4a-b31f-b5db6a615b19"
+      }
+    }
   }
 }

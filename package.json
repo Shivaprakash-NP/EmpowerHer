@@ -10,28 +10,41 @@
     "web": "expo start --web"
   },
   "expo": {
+    "name": "EmpowerHer",
+    "slug": "empowerher",
+    "icon": "./assets/icon.png",
     "doctor": {
       "reactNativeDirectoryCheck": {
         "listUnknownPackages": false
       }
+    },
+    "android": {
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
     }
   },
   "dependencies": {
     "@babel/runtime": "^7.27.0",
+    "@react-native-async-storage/async-storage": "^2.1.2",
+    "@react-native-community/datetimepicker": "8.2.0",
+    "@react-native-picker/picker": "^2.9.0",
     "@react-navigation/bottom-tabs": "^7.3.2",
     "@react-navigation/native": "^7.0.18",
     "@react-navigation/stack": "^7.2.2",
     "expo": "^52.0.40",
     "expo-asset": "~11.0.4",
     "expo-asset-utils": "^3.0.0",
+    "expo-av": "~15.0.2",
     "expo-file-system": "~18.0.11",
+    "expo-image-picker": "~16.0.6",
+    "expo-localization": "^16.0.1",
     "expo-location": "~18.0.8",
     "expo-sqlite": "~15.1.2",
     "expo-status-bar": "~2.0.1",
     "expo-system-ui": "~4.0.8",
+    "firebase": "^11.5.0",
+    "i18n-js": "^4.5.1",
     "leaflet": "^1.9.4",
     "react": "18.3.1",
-    "react-leaflet": "^5.0.0",
     "react-native": "0.76.7",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-maps": "1.18.0",

@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  TouchableOpacity, 
+  Alert, 
+  StyleSheet 
+} from 'react-native';
 
-export default function OTPVerificationTest({ route, navigation }) {
-  const { phone } = route.params;
+const OTPVerificationTest = ({ route, navigation }) => {
+  const { phone } = route.params || {};
   const [otp, setOtp] = useState('');
 
   const handleVerify = () => {
@@ -10,15 +17,18 @@ export default function OTPVerificationTest({ route, navigation }) {
       Alert.alert("Success", "OTP Verified Successfully!", [
         { 
           text: "OK", 
-          onPress: () => {
-            // Navigate directly to the main tabs screen
-            navigation.replace('MainTabs');
-          }
+          onPress: () => navigation.replace('MainTabs') 
         }
       ]);
     } else {
       Alert.alert("Error", "Invalid OTP, please try again.");
     }
+  };
+
+  // Resend OTP button: shows an alert and resets OTP input
+  const handleResend = () => {
+    Alert.alert("Success", "OTP Resended Successfully!");
+    setOtp('');
   };
 
   return (
@@ -32,12 +42,15 @@ export default function OTPVerificationTest({ route, navigation }) {
         onChangeText={setOtp}
         keyboardType="numeric"
       />
-      <TouchableOpacity style={styles.button} onPress={handleVerify}>
+      <TouchableOpacity style={[styles.button, styles.resendButton]} onPress={handleResend}>
+        <Text style={styles.buttonText}>Resend OTP</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.button, styles.verifyButton]} onPress={handleVerify}>
         <Text style={styles.buttonText}>Verify OTP</Text>
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: { 
@@ -47,31 +60,43 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5' 
   },
   title: { 
-    fontSize: 24, 
-    marginBottom: 20, 
-    textAlign: 'center' 
+    fontSize: 26, 
+    marginBottom: 15, 
+    textAlign: 'center', 
+    fontWeight: 'bold' 
   },
   info: { 
     textAlign: 'center', 
-    marginBottom: 20 
+    marginBottom: 20,
+    color: '#555'
   },
   input: {
     height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 15,
+    marginBottom: 20,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
+    fontSize: 18,
   },
   button: { 
-    backgroundColor: '#007BFF', 
     paddingVertical: 15, 
     borderRadius: 8, 
-    alignItems: 'center' 
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  resendButton: {
+    backgroundColor: '#007BFF', // Blue color for Resend
+  },
+  verifyButton: {
+    backgroundColor: '#28a745', // Green color for Verify
   },
   buttonText: { 
     color: '#fff', 
-    fontSize: 18 
+    fontSize: 18, 
+    fontWeight: 'bold',
   },
 });
+
+export default React.memo(OTPVerificationTest);
