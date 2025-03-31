@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/login_bg.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,13 +18,14 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.empowerher",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "This app needs access to location to report and track safety incidents.",
-        "cameraRollPermission": "The app needs access to your media library to select photos."
+        "NSLocationWhenInUseUsageDescription": "This app needs access to your location to report and track safety incidents.",
+        "NSCameraUsageDescription": "This app needs access to your camera to capture images.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to select images."
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.empowerher",

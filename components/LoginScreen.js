@@ -1,13 +1,21 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  TouchableOpacity, 
+  StyleSheet, 
+  Alert, 
+  ImageBackground 
+} from 'react-native';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
-import { UserContext } from '../UserContext'; // Import the context
+import { UserContext } from '../UserContext';
 
 export default function UserDetailsScreen({ navigation }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const { setUser } = useContext(UserContext); // Get the setter from context
+  const { setUser } = useContext(UserContext);
 
   const handleNext = async () => {
     if (!name || !phone) {
@@ -16,26 +24,19 @@ export default function UserDetailsScreen({ navigation }) {
     }
     
     try {
-      // Use the phone number as the unique ID for the user document
       const userDocRef = doc(db, "users", phone);
       const userDocSnap = await getDoc(userDocRef);
 
       if (!userDocSnap.exists()) {
-        // If the document does not exist, create it.
         await setDoc(userDocRef, {
           name,
           phone,
           createdAt: serverTimestamp(),
         });
-        console.log(`User document created for ${phone}`);
-      } else {
-        console.log(`User document already exists for ${phone}`);
       }
 
-      // Save the user data in context so that it is available globally.
       setUser({ phone, name });
 
-      // Navigate to the OTP verification screen.
       navigation.navigate('OTPVerification', {
         phone,
         onVerified: () => navigation.replace('Home')
@@ -47,39 +48,60 @@ export default function UserDetailsScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Enter Your Details</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Full Name"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Mobile Number"
-        value={phone}
-        onChangeText={setPhone}
-        keyboardType="phone-pad"
-      />
-      <TouchableOpacity style={styles.button} onPress={handleNext}>
-        <Text style={styles.buttonText}>Send OTP</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground 
+      source={require('../assets/login_bg.png')}
+      style={styles.background}
+    >
+      <View style={styles.overlay}>
+        <View style={styles.content}>
+          <Text style={styles.title}>Enter Your Details</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Full Name"
+            value={name}
+            onChangeText={setName}
+            placeholderTextColor="#999"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Mobile Number"
+            value={phone}
+            onChangeText={setPhone}
+            keyboardType="phone-pad"
+            placeholderTextColor="#999"
+          />
+          <TouchableOpacity style={styles.button} onPress={handleNext}>
+            <Text style={styles.buttonText}>Send OTP</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
+    resizeMode: 'cover',
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: {
+    width: '90%',
     padding: 20,
-    backgroundColor: '#f5f5f5',
+    borderRadius: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.85)', // Optional: adds contrast for readability
   },
   title: {
     fontSize: 24,
     marginBottom: 20,
     textAlign: 'center',
+    color: '#333',
+    fontWeight: 'bold',
   },
   input: {
     height: 50,

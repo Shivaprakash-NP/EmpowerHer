@@ -1,8 +1,9 @@
-// MainTabNavigator.js
+// NavigationBar.js
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen';
 import ReportIssuesScreen from './ReportIssuesScreen';
+import RatingPlaceScreen from './RatingPlaceScreen';  // Added import
 import RecentReportsScreen from './RecentReportsScreen';
 import SettingsStackNavigator from './SettingsStackNavigator';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -25,6 +26,8 @@ export default function MainTabNavigator() {
             return <Ionicons name="home" size={size} color={color} />;
           } else if (route.name === 'Report') {
             return <MaterialCommunityIcons name="file-document-outline" size={size} color={color} />;
+          } else if (route.name === 'Rating') {
+            return <Ionicons name="star" size={size} color={color} />;
           } else if (route.name === 'Recent') {
             return <Ionicons name="newspaper-outline" size={size} color={color} />;
           } else if (route.name === 'Settings') {
@@ -43,6 +46,11 @@ export default function MainTabNavigator() {
         name="Report"
         component={ReportIssuesScreen}
         options={{ tabBarLabel: 'Report' }}
+      />
+      <Tab.Screen
+        name="Rating"
+        component={RatingPlaceScreen}
+        options={{ tabBarLabel: 'Rating' }}
       />
       <Tab.Screen
         name="Recent"

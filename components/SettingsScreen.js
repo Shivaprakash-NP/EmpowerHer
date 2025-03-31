@@ -1,13 +1,13 @@
-// SettingsScreen.js
+// components/SettingsScreen.js
 import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
-import { UserContext } from '../UserContext'; // Import context
+import { UserContext } from '../UserContext';
 
 export default function SettingsScreen({ navigation }) {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const { user } = useContext(UserContext); // Get logged-in user data
+  const { user, logout } = useContext(UserContext);
 
   const handleManageSOSContacts = () => {
     if (user && user.phone) {
@@ -28,7 +28,13 @@ export default function SettingsScreen({ navigation }) {
       "Are you sure you want to logout?",
       [
         { text: "Cancel", style: 'cancel' },
-        { text: "Logout", onPress: () => navigation.replace('UserDetails') },
+        { 
+          text: "Logout", 
+          onPress: () => {
+            logout();
+            navigation.replace('UserDetails');
+          }
+        },
       ],
       { cancelable: true }
     );
@@ -57,13 +63,14 @@ export default function SettingsScreen({ navigation }) {
 
       <View style={styles.logoutContainer}>
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Ionicons name="log-out" size={30} color="#fff" />
-          <Text style={styles.logoutText}>Logout</Text>
+          <Ionicons name="power" size={40} color="#fff" />
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -107,10 +114,10 @@ const styles = StyleSheet.create({
   },
   logoutContainer: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 250,
     left: 0,
     right: 0,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   logoutButton: {
     backgroundColor: "#FF3B30",

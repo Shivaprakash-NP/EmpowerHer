@@ -69,7 +69,7 @@ export default function FloatingButtons() {
 const styles = StyleSheet.create({
   leftContainer: {
     position: 'absolute',
-    bottom: 100,  // lifted higher from 100
+    bottom: 100,  // lifted high  er from 100
     left: 20,
     zIndex: 100,
   },
