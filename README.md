@@ -1,72 +1,88 @@
-# 🚀 EmpowerHer
+﻿\# EmpowerHer
 
-EmpowerHer is an **Expo React Native** app to empower women’s safety:
-- Fast **SOS** button with location sharing  
-- **Journey Planner**: map, mode selection & route alerts  
-- **Emergency Contacts** screen & **Report Issues** form  
-- **OTP-based login**, **language settings**, and **user profile**
+EmpowerHer is an Expo React Native app designed to enhance women's safety with the following features:
 
----
+- Fast SOS button with location sharing
+- Journey Planner: Map, mode selection, and route alerts
+- Emergency Contacts screen and Report Issues form
+- OTP-based login, language settings, and user profile
 
-## 🔧 Tech Stack
+\## Tech Stack
 
-- **React Native** (Expo)  
-- **JavaScript** / **TypeScript** (if you choose)  
-- **React Navigation** (stack & tab navigators)  
-- **Firebase** for auth & real-time DB  
-- **Custom Context** (`UserContext.js`) for global state  
+- React Native (Expo)
+- JavaScript / TypeScript (optional)
+- React Navigation (stack and tab navigators)
+- Firebase for authentication and real-time database
+- Custom Context (`UserContext.js`) for global state management
 
----
+\## Getting Started
 
-## 📂 Project Structure
+1. Clone the repository:
 
-EmpowerHer/ ├── android/ # native Android project ├── ios/ # native iOS project ├── components/ # screens & UI components │ ├── AuthLoadingScreen.js │ ├── HomeScreen.js │ ├── JourneyPlannerScreen.js │ └── …
-├── App.js # entry point (Expo) ├── firebase.js # Firebase config ├── index.js # React Native bootstrap ├── package.json └── ...
+\```
 
-yaml
-Copy
-Edit
+git clone https://github.com/Shivaprakash-NP/EmpowerHer.git
 
----
+cd EmpowerHer
 
-## 🚀 Getting Started
+\```
 
-1. **Clone** the repo  
+1. Install dependencies:
 
-   git clone https://github.com/Shivaprakash-NP/EmpowerHer.git
-   cd EmpowerHer
-Install dependencies
-
+\```
 
 npm install
-# or
+
+\# or
+
 yarn install
-Run on iOS / Android / Web
+
+\```
+
+1. Run on iOS, Android, or Web:
+
+\```
+
 expo start
 
----
+\```
 
-📝 Contributing
-Fork it
+\## Contributing
 
-Create your feature branch (git checkout -b feature/my-new-ui)
+1. Fork the repository.
+1. Create your feature branch:
 
-Commit your changes (git commit -am 'Add awesome UI')
+\```
 
-Push to branch (git push origin feature/my-new-ui)
+git checkout -b feature/my-new-ui
 
-Open a Pull Request
+\```
 
----
+1. Commit your changes:
 
-📄 License
-Distributed under the MIT License. See LICENSE for details.
+\```
 
-📫 Connect with Me
-🌐 Portfolio: https://shivaprakash-np.github.io/Portfolio/
+git commit -am 'Add awesome UI'
 
-📫 Email: shivaprakashnp1@gmail.com
+\```
 
-💬 Codeforces: https://codeforces.com/profile/shiva___np
+1. Push to the branch:
 
-🧠 LeetCode: https://leetcode.com/u/shiva___np/
+\```
+
+git push origin feature/my-new-ui
+
+\```
+
+1. Open a Pull Request.
+
+\## License
+
+Distributed under the MIT License. See `LICENSE` for details.
+
+\## Connect with Me
+
+- Portfolio: https://shivaprakash-np.github.io/Portfolio/
+- Email: shivaprakash.dev@gmail.com
+- Codeforces: https://codeforces.com/profile/shiva\_\_\_np
+- LeetCode: https://leetcode.com/u/shiva\_\_\_np/
